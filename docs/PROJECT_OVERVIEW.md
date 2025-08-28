@@ -32,10 +32,10 @@ Sample output charts are saved in the `docs/` folder:
 
 ```mermaid
 flowchart LR
-   A[Raw Clinical Data (CSV, JSON, etc.)] --> B[ETL Script (Python)]
-   B --> C[OMOP CDM Database (PostgreSQL)]
+   A[Raw Clinical Data: CSV, JSON, etc.] --> B[ETL Script: Python]
+   B --> C[OMOP CDM Database: PostgreSQL]
    C --> D[Data Quality Checks]
-   D --> E[Analytics & Visualization (Python, Matplotlib)]
+   D --> E[Analytics & Visualization: Python, Matplotlib]
    E --> F[Charts & Insights for Research]
 ```
 - **OMOP CDM**: Explain what the OMOP Common Data Model is and why it’s used in healthcare for standardizing and integrating diverse clinical data sources.
