@@ -28,6 +28,35 @@ Sample output charts are saved in the `docs/` folder:
 - Top concepts over time
 
 ## Interview Preparation Talking Points
+- **OMOP CDM:**
+   - The OMOP Common Data Model (CDM) is an open standard for harmonizing and structuring diverse healthcare data (EHR, claims, registries) into a consistent, research-ready format.
+   - Enables interoperability, large-scale analytics, and reproducibility by mapping local codes to standard vocabularies (ICD, SNOMED, RxNorm, etc.).
+   - Widely adopted by the OHDSI community, OMOP CDM supports multi-center studies and regulatory submissions.
+
+- **ETL Design:**
+   - Designed a modular ETL pipeline in Python that ingests raw clinical data, transforms it to OMOP CDM tables, and loads it into PostgreSQL.
+   - The pipeline is scalable (can handle more data sources/tables), reproducible (scripted, version-controlled), and easy to extend.
+   - Each step (extract, transform, load) is separated for clarity and maintainability.
+
+- **Data Quality:**
+   - Automated checks include: missing values, duplicates, referential integrity (foreign keys), and out-of-range values (e.g., future birth years).
+   - These checks are run before loading data, and errors are logged for review.
+   - Ensures high data integrity, which is critical for valid research and regulatory compliance.
+
+- **Analytics & Insights:**
+   - Used SQL and Python (pandas, matplotlib) to generate descriptive statistics and visualizations (age distribution, trends, concept frequencies).
+   - Visual outputs help stakeholders quickly understand data quality, cohort characteristics, and trends.
+   - The approach supports both ad-hoc queries and reproducible reporting.
+
+- **Alignment with Job Description:**
+   - Demonstrates scalable, production-grade data engineering using industry standards (OMOP, PostgreSQL, Python).
+   - Includes data quality, security (user roles), and documentation for compliance.
+   - Shows ability to collaborate (modular code, clear documentation) and support analytics/research needs.
+
+- **Extensibility:**
+   - The pipeline can be extended to cloud platforms (AWS RDS, Azure Database) for scalability and managed services.
+   - Can add more data sources (e.g., FHIR, HL7) or automate ingestion with workflow tools (Airflow, Prefect).
+   - Supports integration with BI tools (Power BI, Tableau) and advanced analytics (machine learning, real-world evidence studies).
 - **Workflow Diagram:**
 
 ```mermaid
