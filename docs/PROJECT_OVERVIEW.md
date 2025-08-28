@@ -1,58 +1,17 @@
-### Data Workflow Diagram: Implementation Steps
+## Data Workflow & System Integration
 
-1. **Healthcare Data Sources**  
-   - Example: `data/person_sample.csv`, `data/observation_sample.csv` simulate EHR/lab data.
+This project implements a modern clinical data engineering workflow, integrating healthcare standards, terminologies, databases, cloud platforms, and analytics tools:
 
-2. **Ingestion & ETL**  
-   - Script: `etl/etl_load.py` reads raw data, transforms it to OMOP CDM format, and loads it into the database.
+1. **Healthcare Data Sources:** EHRs, labs, registries, claims, and vendors provide data, often in HL7 FHIR format and containing USCDI-required elements. Example files: `data/person_sample.csv`, `data/observation_sample.csv`.
+2. **Ingestion & ETL:** ETL pipelines (e.g., `etl/etl_load.py`) extract data from FHIR APIs, files, or databases, transform and map fields/codes to OMOP CDM tables and vocabularies (using mapping tables or services like Athena), and load harmonized data into relational databases (PostgreSQL, Oracle, SQL Server). Automation/orchestration tools (Airflow, Prefect, cloud-native) can manage and monitor workflows.
+3. **Terminology Mapping:** Local codes (ICD-10, SNOMED, LOINC, etc.) are mapped to OMOP standard concept IDs using mapping tables or vocabularies. See `data/code_mapping_sample.csv` for a demo.
+4. **OMOP CDM Database:** OMOP CDM data is stored in scalable RDBMS or cloud data warehouses (AWS, Azure, GCP) and can be integrated with data lakes for large-scale analytics. Schema: `docs/omop_cdm_schema.sql`.
+5. **Data Quality & Metadata:** Automated validation checks for completeness, consistency, referential integrity, and code mapping are included in the ETL script. Data lineage and transformation steps are documented in the code and README.
+6. **Analytics, Visualization, and Reporting:** SQL, Python (pandas, matplotlib), R, SAS, Tableau, and Power BI are used for cohort selection, EDA, modeling, dashboards, and regulatory reporting. See `etl/analytics_visualization.py` and charts in `docs/`.
+7. **Security, Compliance, and Collaboration:** User roles, logging, and auditing support HIPAA/FDA/NIH compliance; collaboration with cross-functional teams and code management via GitHub.
+8. **Continuous Improvement:** Stay current with new standards (FHIR, OMOP, USCDI), technologies, and best practices; adapt pipelines for new data sources, cloud, and regulatory needs.
 
-3. **Terminology Mapping**  
-   - In a real-world scenario, you would map local codes to OMOP standard vocabularies (ICD-10, SNOMED, etc.) using mapping tables or services (e.g., Athena).
-   - For this demo, sample data is already OMOP-aligned, but the ETL script can be extended for mapping.
-
-4. **OMOP CDM Database**  
-   - Schema: `docs/omop_cdm_schema.sql` defines OMOP tables in PostgreSQL.
-   - Data is loaded and managed in a relational database.
-
-5. **Data Quality & Metadata**  
-   - The ETL script includes validation checks (missing values, referential integrity).
-   - Data lineage and transformation steps are documented in the code and README.
-
-6. **Analytics & Visualization**  
-   - Script: `etl/analytics_visualization.py` runs SQL queries and generates charts (saved in `docs/`).
-   - Tools: Python (pandas, matplotlib), but can be extended to Tableau/Power BI.
-
-7. **Research, Reporting, Compliance**  
-   - The harmonized, validated data is ready for cohort selection, analytics, and regulatory reporting.
-   - The workflow supports compliance and collaboration as described in the job requirements.
-## How Data Systems, Standards, and Tools Interact
-
-This section explains how healthcare data standards, terminologies, databases, cloud platforms, and analytics tools work together in a modern clinical data engineering workflow:
-
-- **Data Sources & Standards:**
-   - EHRs, labs, registries, claims, and vendors provide data, often in HL7 FHIR format and containing USCDI-required elements.
-   - Healthcare terminologies (ICD-10, SNOMED, RxNorm, LOINC, CPT/HCPCS, Athena) are used for standardized coding.
-
-- **Ingestion & ETL:**
-   - ETL pipelines extract data from FHIR APIs, files, or databases, transform and map fields/codes to OMOP CDM tables and vocabularies, and load harmonized data into relational databases (PostgreSQL, Oracle, SQL Server).
-   - Automation/orchestration tools (Airflow, Prefect, cloud-native) manage and monitor workflows.
-
-- **Storage & Cloud:**
-   - OMOP CDM data is stored in scalable RDBMS or cloud data warehouses (AWS, Azure, GCP) and can be integrated with data lakes for large-scale analytics.
-
-- **Data Quality & Metadata:**
-   - Automated validation checks for completeness, consistency, referential integrity, and code mapping; data lineage and transformation documentation ensure reproducibility.
-
-- **Analytics, Visualization, and Reporting:**
-   - SQL, Python, R, SAS, Tableau, and Power BI are used for cohort selection, EDA, modeling, dashboards, and regulatory reporting.
-
-- **Security, Compliance, and Collaboration:**
-   - User roles, logging, and auditing support HIPAA/FDA/NIH compliance; collaboration with cross-functional teams and code management via GitHub.
-
-- **Continuous Improvement:**
-   - Stay current with new standards (FHIR, OMOP, USCDI), technologies, and best practices; adapt pipelines for new data sources, cloud, and regulatory needs.
-
-### Example Data Workflow Diagram
+### Data Workflow Diagram
 
 ```mermaid
 flowchart TD
@@ -65,108 +24,22 @@ flowchart TD
 ```
 ## Advanced Data Systems & Techniques
 
-- **Data Systems & Databases:**
-   - Experience with PostgreSQL, Oracle, SQL Server; can adapt ETL and schema to enterprise systems.
-   - Familiar with cloud data warehousing (AWS Redshift, Azure Synapse, Google BigQuery) and data lakes (S3, Blob Storage, GCS).
-
-- **Data Frameworks & Pipelines:**
-   - Use of workflow/orchestration tools (Airflow, Prefect) for production ETL.
-   - Automation of validation, logging, and auditing for compliance and reproducibility.
-
-- **Interoperability & Standards:**
-   - Knowledge of FHIR, HL7, USCDI for healthcare data exchange; can map FHIR to OMOP CDM.
-   - Work with ICD-10, SNOMED, RxNorm, LOINC, CPT/HCPCS for terminology standardization.
-
-- **Data Quality & Metadata:**
-   - Automated pipelines for completeness, consistency, accuracy, and anomaly detection.
-   - Document data lineage, transformations, and quality checks; implement metadata catalogs.
-
-- **Analytics, Visualization, and Reporting:**
-   - Use Python (matplotlib, seaborn), Tableau, Power BI for analytics and dashboards.
-   - Prepare data for statistical modeling, predictive analytics, and real-world evidence studies (Python, R, SAS).
-
-- **Security, Compliance, and Collaboration:**
-   - Implement user roles, logging, and auditing for HIPAA/FDA/NIH compliance.
-   - Collaborate with clinicians, data scientists, and IT; use GitHub for code management.
-
-- **Extensibility & Continuous Learning:**
-   - Stay current with new data engineering and informatics technologies.
-   - Adapt pipelines for new data sources, cloud platforms, and regulatory needs.
-# Project Overview: OMOP Clinical Data Pipeline
-
-This project demonstrates scalable clinical data engineering using Python, PostgreSQL, and the OMOP Common Data Model (CDM). It simulates real-world healthcare data workflows, including ETL, data quality checks, and analytics visualizations.
-
-## Key Features
-- End-to-end ETL pipeline for clinical data
-- OMOP CDM schema implementation
-- Automated data validation and quality checks
-- Analytics and visualizations (age distribution, observations over time, etc.)
-- Modular, production-grade code structure
-
-## Usage
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/justin-mbca/omop-clinical-data-pipeline.git
-   cd omop-clinical-data-pipeline
-   ```
-2. Set up your Python environment and install dependencies.
-3. Configure your PostgreSQL connection in `etl/etl_load.py`.
-4. Run the ETL and analytics scripts as described in the README.
-
-## Visualizations
-Sample output charts are saved in the `docs/` folder:
-- Persons by gender
-- Age distribution
-- Observations per year/month
-- Cumulative observations
-- Top concepts over time
+- Experience with PostgreSQL, Oracle, SQL Server, and cloud data warehousing (AWS Redshift, Azure Synapse, Google BigQuery), as well as data lakes (S3, Blob Storage, GCS).
+- Use of workflow/orchestration tools (Airflow, Prefect) for production ETL, and automation of validation, logging, and auditing for compliance and reproducibility.
+- Knowledge of FHIR, HL7, USCDI for healthcare data exchange; can map FHIR to OMOP CDM. Work with ICD-10, SNOMED, RxNorm, LOINC, CPT/HCPCS for terminology standardization.
+- Automated pipelines for completeness, consistency, accuracy, and anomaly detection; document data lineage, transformations, and quality checks; implement metadata catalogs.
+- Use Python (matplotlib, seaborn), Tableau, Power BI for analytics and dashboards; prepare data for statistical modeling, predictive analytics, and real-world evidence studies (Python, R, SAS).
+- Implement user roles, logging, and auditing for HIPAA/FDA/NIH compliance; collaborate with clinicians, data scientists, and IT; use GitHub for code management.
+- Stay current with new data engineering and informatics technologies; adapt pipelines for new data sources, cloud platforms, and regulatory needs.
 
 ## Interview Preparation Talking Points
-- **OMOP CDM:**
-   - The OMOP Common Data Model (CDM) is an open standard for harmonizing and structuring diverse healthcare data (EHR, claims, registries) into a consistent, research-ready format.
-   - Enables interoperability, large-scale analytics, and reproducibility by mapping local codes to standard vocabularies (ICD, SNOMED, RxNorm, etc.).
-   - Widely adopted by the OHDSI community, OMOP CDM supports multi-center studies and regulatory submissions.
 
-- **ETL Design:**
-   - Designed a modular ETL pipeline in Python that ingests raw clinical data, transforms it to OMOP CDM tables, and loads it into PostgreSQL.
-   - The pipeline is scalable (can handle more data sources/tables), reproducible (scripted, version-controlled), and easy to extend.
-   - Each step (extract, transform, load) is separated for clarity and maintainability.
-
-- **Data Quality:**
-   - Automated checks include: missing values, duplicates, referential integrity (foreign keys), and out-of-range values (e.g., future birth years).
-   - These checks are run before loading data, and errors are logged for review.
-   - Ensures high data integrity, which is critical for valid research and regulatory compliance.
-
-- **Analytics & Insights:**
-   - Used SQL and Python (pandas, matplotlib) to generate descriptive statistics and visualizations (age distribution, trends, concept frequencies).
-   - Visual outputs help stakeholders quickly understand data quality, cohort characteristics, and trends.
-   - The approach supports both ad-hoc queries and reproducible reporting.
-
-- **Alignment with Job Description:**
-   - Demonstrates scalable, production-grade data engineering using industry standards (OMOP, PostgreSQL, Python).
-   - Includes data quality, security (user roles), and documentation for compliance.
-   - Shows ability to collaborate (modular code, clear documentation) and support analytics/research needs.
-
-- **Extensibility:**
-   - The pipeline can be extended to cloud platforms (AWS RDS, Azure Database) for scalability and managed services.
-   - Can add more data sources (e.g., FHIR, HL7) or automate ingestion with workflow tools (Airflow, Prefect).
-   - Supports integration with BI tools (Power BI, Tableau) and advanced analytics (machine learning, real-world evidence studies).
-- **Workflow Diagram:**
-
-```mermaid
-flowchart LR
-   A[Raw Clinical Data: CSV, JSON, etc.] --> B[ETL Script: Python]
-   B --> C[OMOP CDM Database: PostgreSQL]
-   C --> D[Data Quality Checks]
-   D --> E[Analytics & Visualization: Python, Matplotlib]
-   E --> F[Charts & Insights for Research]
-```
-- **OMOP CDM**: Explain what the OMOP Common Data Model is and why it’s used in healthcare for standardizing and integrating diverse clinical data sources.
-- **ETL Design**: Discuss your approach to building scalable, modular ETL pipelines and how you ensured data quality and reproducibility.
-- **Data Quality**: Highlight the automated checks for missing, duplicate, or out-of-range data, and how these support research integrity.
-- **Analytics & Insights**: Describe how you used SQL and Python to extract insights and create visualizations that support research and business decisions.
-- **Alignment with Job Description**: Emphasize how this demo covers scalable data engineering, regulatory compliance, collaboration, and support for analytics and research.
-- **Extensibility**: Be ready to discuss how you would extend this pipeline for cloud deployment, larger datasets, or additional data sources.
+- **OMOP CDM:** Open standard for harmonizing and structuring diverse healthcare data (EHR, claims, registries) into a consistent, research-ready format. Enables interoperability, large-scale analytics, and reproducibility by mapping local codes to standard vocabularies (ICD, SNOMED, RxNorm, etc.). Widely adopted by the OHDSI community.
+- **ETL Design:** Modular ETL pipeline in Python ingests raw clinical data, transforms it to OMOP CDM tables, and loads it into PostgreSQL. Scalable, reproducible, and easy to extend.
+- **Data Quality:** Automated checks for missing values, duplicates, referential integrity, and out-of-range values. Ensures high data integrity for valid research and compliance.
+- **Analytics & Insights:** SQL and Python (pandas, matplotlib) generate descriptive statistics and visualizations. Visual outputs help stakeholders understand data quality, cohort characteristics, and trends.
+- **Alignment with Job Description:** Demonstrates scalable, production-grade data engineering using industry standards. Includes data quality, security, and documentation for compliance. Shows ability to collaborate and support analytics/research needs.
+- **Extensibility:** Pipeline can be extended to cloud platforms, more data sources, and advanced analytics/BI tools.
 
 ---
 
