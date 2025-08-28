@@ -1,3 +1,45 @@
+## System Architecture Diagram (Mermaid)
+
+```mermaid
+flowchart TD
+   %% Agent Layer
+   subgraph Agent_Layer[Agent Layer]
+      AG1[agents/multi_agent.py]
+   end
+
+   %% Tool Layer
+   subgraph Tool_Layer[Tool Layer]
+      T1[tools/pubmed.py]
+      T2[tools/pubchem.py]
+      T3[predictive_modeling.py]
+      T4[doc_example.py]
+      T5[regulatory_nlp.py]
+      U1[app/utils/]
+   end
+
+   %% Data Layer
+   subgraph Data_Layer[Data Layer]
+      D1[data/raw/]
+      D2[db/mongodb.py]
+      D3[drug_discovery.db]
+      D4[data/processed/]
+   end
+
+   %% Connections
+   AG1 --> T1
+   AG1 --> T2
+   AG1 --> T3
+   AG1 --> T4
+   AG1 --> T5
+   AG1 --> U1
+   T1 -- fetches --> D1
+   T2 -- fetches --> D1
+   T3 --> D2
+   T4 --> D3
+   T5 --> D4
+   U1 -- returns --> AG1
+   D1 -.-> D4
+```
 ## Data Workflow & System Integration
 
 This project implements a modern clinical data engineering workflow, integrating healthcare standards, terminologies, databases, cloud platforms, and analytics tools:
