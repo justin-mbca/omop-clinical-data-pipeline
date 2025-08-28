@@ -17,17 +17,17 @@ This project implements a modern clinical data engineering workflow, integrating
 ```mermaid
 flowchart TD
    subgraph SOURCE[Source/Data Layer]
-      S1[Healthcare Data Sources\nEHR, Labs, Claims, Vendors]
+      S1[Healthcare Data Sources<br>EHR, Labs, Claims, Vendors]
    end
    subgraph ETL[ETL/Processing Layer]
-      E1[Ingestion & ETL\nPython, Airflow, FHIR, USCDI]
-      E2[Terminology Mapping\nICD-10, SNOMED, RxNorm, LOINC, Athena]
-      E3[OMOP CDM Database\nPostgreSQL, Oracle, SQL Server, Cloud]
-      E4[Data Quality & Metadata\nValidation, Lineage]
+      E1[Ingestion & ETL<br>Python, Airflow, FHIR, USCDI]
+      E2[Terminology Mapping<br>ICD-10, SNOMED, RxNorm, LOINC, Athena]
+      E3[OMOP CDM Database<br>PostgreSQL, Oracle, SQL Server, Cloud]
+      E4[Data Quality & Metadata<br>Validation, Lineage]
    end
    subgraph ANALYTICS[Analytics/Reporting Layer]
-      A1[Analytics & Visualization\nSQL, Python, R, Tableau, Power BI]
-      A2[Research, Reporting, Compliance\nFDA, NIH, Life Science]
+      A1[Analytics & Visualization<br>SQL, Python, R, Tableau, Power BI]
+      A2[Research, Reporting, Compliance<br>FDA, NIH, Life Science]
    end
 
    S1 --> E1
