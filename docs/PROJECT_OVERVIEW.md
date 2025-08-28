@@ -1,3 +1,30 @@
+### Data Workflow Diagram: Implementation Steps
+
+1. **Healthcare Data Sources**  
+   - Example: `data/person_sample.csv`, `data/observation_sample.csv` simulate EHR/lab data.
+
+2. **Ingestion & ETL**  
+   - Script: `etl/etl_load.py` reads raw data, transforms it to OMOP CDM format, and loads it into the database.
+
+3. **Terminology Mapping**  
+   - In a real-world scenario, you would map local codes to OMOP standard vocabularies (ICD-10, SNOMED, etc.) using mapping tables or services (e.g., Athena).
+   - For this demo, sample data is already OMOP-aligned, but the ETL script can be extended for mapping.
+
+4. **OMOP CDM Database**  
+   - Schema: `docs/omop_cdm_schema.sql` defines OMOP tables in PostgreSQL.
+   - Data is loaded and managed in a relational database.
+
+5. **Data Quality & Metadata**  
+   - The ETL script includes validation checks (missing values, referential integrity).
+   - Data lineage and transformation steps are documented in the code and README.
+
+6. **Analytics & Visualization**  
+   - Script: `etl/analytics_visualization.py` runs SQL queries and generates charts (saved in `docs/`).
+   - Tools: Python (pandas, matplotlib), but can be extended to Tableau/Power BI.
+
+7. **Research, Reporting, Compliance**  
+   - The harmonized, validated data is ready for cohort selection, analytics, and regulatory reporting.
+   - The workflow supports compliance and collaboration as described in the job requirements.
 ## How Data Systems, Standards, and Tools Interact
 
 This section explains how healthcare data standards, terminologies, databases, cloud platforms, and analytics tools work together in a modern clinical data engineering workflow:
