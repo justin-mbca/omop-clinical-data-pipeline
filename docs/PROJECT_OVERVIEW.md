@@ -21,7 +21,7 @@ flowchart TD
    end
    subgraph ETL[ETL/Processing Layer]
       E1[Ingestion & ETL<br>Python, Airflow, FHIR, USCDI]
-   E2[Terminology Mapping<br>ICD-10, SNOMED, RxNorm, LOINC<br>(vocabularies from Athena)]
+   E2[Terminology Mapping<br>ICD-10, SNOMED, RxNorm, LOINC, Athena]
       E3[OMOP CDM Database<br>PostgreSQL, Oracle, SQL Server, Cloud]
       E4[Data Quality & Metadata<br>Validation, Lineage]
    end
