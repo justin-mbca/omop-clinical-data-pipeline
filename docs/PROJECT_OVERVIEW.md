@@ -1,45 +1,3 @@
-## System Architecture Diagram (Mermaid)
-
-```mermaid
-flowchart TD
-   %% Agent Layer
-   subgraph Agent_Layer[Agent Layer]
-      AG1[agents/multi_agent.py]
-   end
-
-   %% Tool Layer
-   subgraph Tool_Layer[Tool Layer]
-      T1[tools/pubmed.py]
-      T2[tools/pubchem.py]
-      T3[predictive_modeling.py]
-      T4[doc_example.py]
-      T5[regulatory_nlp.py]
-      U1[app/utils/]
-   end
-
-   %% Data Layer
-   subgraph Data_Layer[Data Layer]
-      D1[data/raw/]
-      D2[db/mongodb.py]
-      D3[drug_discovery.db]
-      D4[data/processed/]
-   end
-
-   %% Connections
-   AG1 --> T1
-   AG1 --> T2
-   AG1 --> T3
-   AG1 --> T4
-   AG1 --> T5
-   AG1 --> U1
-   T1 -- fetches --> D1
-   T2 -- fetches --> D1
-   T3 --> D2
-   T4 --> D3
-   T5 --> D4
-   U1 -- returns --> AG1
-   D1 -.-> D4
-```
 ## Data Workflow & System Integration
 
 This project implements a modern clinical data engineering workflow, integrating healthcare standards, terminologies, databases, cloud platforms, and analytics tools:
@@ -53,16 +11,32 @@ This project implements a modern clinical data engineering workflow, integrating
 7. **Security, Compliance, and Collaboration:** User roles, logging, and auditing support HIPAA/FDA/NIH compliance; collaboration with cross-functional teams and code management via GitHub.
 8. **Continuous Improvement:** Stay current with new standards (FHIR, OMOP, USCDI), technologies, and best practices; adapt pipelines for new data sources, cloud, and regulatory needs.
 
-### Data Workflow Diagram (Side-by-Side Columns)
+
+### Data Workflow Diagram (Layered Mermaid Style)
 
 ```mermaid
-flowchart LR
-   %% Left column
-   A[Healthcare Data Sources\nEHR, Labs, Claims, Vendors] --> B[Ingestion & ETL\nPython, Airflow, FHIR, USCDI] --> C[Terminology Mapping\nICD-10, SNOMED, RxNorm, LOINC, Athena] --> D[OMOP CDM Database\nPostgreSQL, Oracle, SQL Server, Cloud]
-   %% Right column
-   E[Data Quality & Metadata\nValidation, Lineage] --> F[Analytics & Visualization\nSQL, Python, R, Tableau, Power BI] --> G[Research, Reporting, Compliance\nFDA, NIH, Life Science]
-   %% Connect the two columns
-   D -.-> E
+flowchart TD
+   %% Source/Data Layer
+   subgraph Source_Layer[Source/Data Layer]
+      S1[Healthcare Data Sources\nEHR, Labs, Claims, Vendors]
+   end
+
+   %% ETL/Processing Layer
+   subgraph ETL_Layer[ETL/Processing Layer]
+      E1[Ingestion & ETL\nPython, Airflow, FHIR, USCDI]
+      E2[Terminology Mapping\nICD-10, SNOMED, RxNorm, LOINC, Athena]
+      E3[OMOP CDM Database\nPostgreSQL, Oracle, SQL Server, Cloud]
+      E4[Data Quality & Metadata\nValidation, Lineage]
+   end
+
+   %% Analytics/Reporting Layer
+   subgraph Analytics_Layer[Analytics/Reporting Layer]
+      A1[Analytics & Visualization\nSQL, Python, R, Tableau, Power BI]
+      A2[Research, Reporting, Compliance\nFDA, NIH, Life Science]
+   end
+
+   %% Workflow connections
+   S1 --> E1 --> E2 --> E3 --> E4 --> A1 --> A2
 ```
 ## Advanced Data Systems & Techniques
 
