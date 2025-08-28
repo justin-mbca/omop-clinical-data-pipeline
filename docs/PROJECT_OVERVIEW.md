@@ -11,16 +11,22 @@ This project implements a modern clinical data engineering workflow, integrating
 7. **Security, Compliance, and Collaboration:** User roles, logging, and auditing support HIPAA/FDA/NIH compliance; collaboration with cross-functional teams and code management via GitHub.
 8. **Continuous Improvement:** Stay current with new standards (FHIR, OMOP, USCDI), technologies, and best practices; adapt pipelines for new data sources, cloud, and regulatory needs.
 
-### Data Workflow Diagram
+### Data Workflow Diagram (Two-Column Layout)
 
 ```mermaid
 flowchart TD
-   A[Healthcare Data Sources: EHR, Labs, Claims, Vendors] --> B[Ingestion & ETL: Python, Airflow, FHIR, USCDI]
-   B --> C[Terminology Mapping: ICD-10, SNOMED, RxNorm, LOINC, Athena]
-   C --> D[OMOP CDM Database: PostgreSQL, Oracle, SQL Server, Cloud]
-   D --> E[Data Quality & Metadata: Validation, Lineage]
-   E --> F[Analytics & Visualization: SQL, Python, R, Tableau, Power BI]
-   F --> G[Research, Reporting, Compliance: FDA, NIH, Life Science]
+   subgraph COL1[ ]
+      A1[Healthcare Data Sources\nEHR, Labs, Claims, Vendors]
+      B1[Ingestion & ETL\nPython, Airflow, FHIR, USCDI]
+      C1[Terminology Mapping\nICD-10, SNOMED, RxNorm, LOINC, Athena]
+      D1[OMOP CDM Database\nPostgreSQL, Oracle, SQL Server, Cloud]
+   end
+   subgraph COL2[ ]
+      A2[Data Quality & Metadata\nValidation, Lineage]
+      B2[Analytics & Visualization\nSQL, Python, R, Tableau, Power BI]
+      C2[Research, Reporting, Compliance\nFDA, NIH, Life Science]
+   end
+   A1 --> B1 --> C1 --> D1 --> A2 --> B2 --> C2
 ```
 ## Advanced Data Systems & Techniques
 
