@@ -29,12 +29,12 @@ This section explains how healthcare data standards, terminologies, databases, c
 
 ```mermaid
 flowchart TD
-      A[Healthcare Data Sources<br>(EHR, Labs, Claims, Vendors)] --> B[Ingestion & ETL<br>(Python, Airflow, FHIR, USCDI)]
-      B --> C[Terminology Mapping<br>(ICD-10, SNOMED, RxNorm, LOINC, Athena)]
-      C --> D[OMOP CDM Database<br>(PostgreSQL, Oracle, SQL Server, Cloud)]
-      D --> E[Data Quality & Metadata<br>(Validation, Lineage)]
-      E --> F[Analytics & Visualization<br>(SQL, Python, R, Tableau, Power BI)]
-      F --> G[Research, Reporting, Compliance<br>(FDA, NIH, Life Science)]
+   A[Healthcare Data Sources: EHR, Labs, Claims, Vendors] --> B[Ingestion & ETL: Python, Airflow, FHIR, USCDI]
+   B --> C[Terminology Mapping: ICD-10, SNOMED, RxNorm, LOINC, Athena]
+   C --> D[OMOP CDM Database: PostgreSQL, Oracle, SQL Server, Cloud]
+   D --> E[Data Quality & Metadata: Validation, Lineage]
+   E --> F[Analytics & Visualization: SQL, Python, R, Tableau, Power BI]
+   F --> G[Research, Reporting, Compliance: FDA, NIH, Life Science]
 ```
 ## Advanced Data Systems & Techniques
 
