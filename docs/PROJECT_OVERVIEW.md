@@ -4,7 +4,7 @@ This project implements a modern clinical data engineering workflow, integrating
 
 1. **Healthcare Data Sources:** EHRs, labs, registries, claims, and vendors provide data, often in HL7 FHIR format and containing USCDI-required elements. Example files: `data/person_sample.csv`, `data/observation_sample.csv`.
 2. **Ingestion & ETL:** ETL pipelines (e.g., `etl/etl_load.py`) extract data from FHIR APIs, files, or databases, transform and map fields/codes to OMOP CDM tables and vocabularies (using mapping tables or services like Athena), and load harmonized data into relational databases (PostgreSQL, Oracle, SQL Server). Automation/orchestration tools (Airflow, Prefect, cloud-native) can manage and monitor workflows.
-3. **Terminology Mapping:** Local codes (ICD-10, SNOMED, LOINC, etc.) are mapped to OMOP standard concept IDs using mapping tables or vocabularies. See `data/code_mapping_sample.csv` for a demo.
+3. **Terminology Mapping:** Local codes (ICD-10, SNOMED, LOINC, etc.) are mapped to OMOP standard concept IDs using mapping tables or vocabularies. OMOP vocabularies are typically downloaded in bulk from the OHDSI Athena platform (https://athena.ohdsi.org/) and loaded into your database for use in the ETL process. See `data/code_mapping_sample.csv` for a demo.
 4. **OMOP CDM Database:** OMOP CDM data is stored in scalable RDBMS or cloud data warehouses (AWS, Azure, GCP) and can be integrated with data lakes for large-scale analytics. Schema: `docs/omop_cdm_schema.sql`.
 5. **Data Quality & Metadata:** Automated validation checks for completeness, consistency, referential integrity, and code mapping are included in the ETL script. Data lineage and transformation steps are documented in the code and README.
 6. **Analytics, Visualization, and Reporting:** SQL, Python (pandas, matplotlib), R, SAS, Tableau, and Power BI are used for cohort selection, EDA, modeling, dashboards, and regulatory reporting. See `etl/analytics_visualization.py` and charts in `docs/`.
@@ -21,7 +21,7 @@ flowchart TD
    end
    subgraph ETL[ETL/Processing Layer]
       E1[Ingestion & ETL<br>Python, Airflow, FHIR, USCDI]
-      E2[Terminology Mapping<br>ICD-10, SNOMED, RxNorm, LOINC, Athena]
+   E2[Terminology Mapping<br>ICD-10, SNOMED, RxNorm, LOINC<br>(vocabularies from Athena)]
       E3[OMOP CDM Database<br>PostgreSQL, Oracle, SQL Server, Cloud]
       E4[Data Quality & Metadata<br>Validation, Lineage]
    end
