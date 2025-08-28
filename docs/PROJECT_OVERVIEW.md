@@ -28,6 +28,16 @@ Sample output charts are saved in the `docs/` folder:
 - Top concepts over time
 
 ## Interview Preparation Talking Points
+- **Workflow Diagram:**
+
+```mermaid
+flowchart LR
+   A[Raw Clinical Data (CSV, JSON, etc.)] --> B[ETL Script (Python)]
+   B --> C[OMOP CDM Database (PostgreSQL)]
+   C --> D[Data Quality Checks]
+   D --> E[Analytics & Visualization (Python, Matplotlib)]
+   E --> F[Charts & Insights for Research]
+```
 - **OMOP CDM**: Explain what the OMOP Common Data Model is and why it’s used in healthcare for standardizing and integrating diverse clinical data sources.
 - **ETL Design**: Discuss your approach to building scalable, modular ETL pipelines and how you ensured data quality and reproducibility.
 - **Data Quality**: Highlight the automated checks for missing, duplicate, or out-of-range data, and how these support research integrity.
