@@ -12,19 +12,30 @@ This project implements a modern clinical data engineering workflow, integrating
 8. **Continuous Improvement:** Stay current with new standards (FHIR, OMOP, USCDI), technologies, and best practices; adapt pipelines for new data sources, cloud, and regulatory needs.
 
 
-### Data Workflow Diagram (Vertical One-Column Format)
+### Data Workflow Diagram (Vertical One-Column, Grouped by Layer)
 
 ```mermaid
 flowchart TD
-   S1[Healthcare Data Sources\nEHR, Labs, Claims, Vendors]
-   E1[Ingestion & ETL\nPython, Airflow, FHIR, USCDI]
-   E2[Terminology Mapping\nICD-10, SNOMED, RxNorm, LOINC, Athena]
-   E3[OMOP CDM Database\nPostgreSQL, Oracle, SQL Server, Cloud]
-   E4[Data Quality & Metadata\nValidation, Lineage]
-   A1[Analytics & Visualization\nSQL, Python, R, Tableau, Power BI]
-   A2[Research, Reporting, Compliance\nFDA, NIH, Life Science]
+   subgraph SOURCE[Source/Data Layer]
+      S1[Healthcare Data Sources\nEHR, Labs, Claims, Vendors]
+   end
+   subgraph ETL[ETL/Processing Layer]
+      E1[Ingestion & ETL\nPython, Airflow, FHIR, USCDI]
+      E2[Terminology Mapping\nICD-10, SNOMED, RxNorm, LOINC, Athena]
+      E3[OMOP CDM Database\nPostgreSQL, Oracle, SQL Server, Cloud]
+      E4[Data Quality & Metadata\nValidation, Lineage]
+   end
+   subgraph ANALYTICS[Analytics/Reporting Layer]
+      A1[Analytics & Visualization\nSQL, Python, R, Tableau, Power BI]
+      A2[Research, Reporting, Compliance\nFDA, NIH, Life Science]
+   end
 
-   S1 --> E1 --> E2 --> E3 --> E4 --> A1 --> A2
+   S1 --> E1
+   E1 --> E2
+   E2 --> E3
+   E3 --> E4
+   E4 --> A1
+   A1 --> A2
 ```
 ## Advanced Data Systems & Techniques
 
